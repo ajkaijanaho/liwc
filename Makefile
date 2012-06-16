@@ -28,6 +28,8 @@ scripts=chktri
 all: $(bins)
 
 install: all
+	install -d $(DESTDIR)$(bindir)
+	install -d $(DESTDIR)$(man1dir)
 	install $(bins) $(scripts) $(DESTDIR)$(bindir)
 	install -m 0644 *.1 $(DESTDIR)$(man1dir)
 
