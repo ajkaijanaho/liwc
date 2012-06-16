@@ -15,7 +15,8 @@
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 CC=gcc
-CFLAGS=-Wall -ansi -pedantic -O2  -D_POSIX_C_SOURCE=2
+CPPFLAGS= -D_POSIX_C_SOURCE=2
+CFLAGS=-Wall -ansi -pedantic -O2
 LDFLAGS=
 LIBS=-lpub
 
@@ -34,15 +35,15 @@ install: all
 	install -m 0644 *.1 $(DESTDIR)$(man1dir)
 
 cstr: cstr.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
 ccmtcnvt: ccmtcnvt.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
 rmccmt: rmccmt.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
 entrigraph: entrigraph.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
 untrigraph: untrigraph.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
 
 clean:
 	rm -f core *.o $(bins)
