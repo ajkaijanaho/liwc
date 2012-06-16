@@ -1,4 +1,5 @@
 #    Part of liwc, a collection of tools for manipulating C source code
+#    Copyright (c) 2012 Antti-Juhani Kaijanaho
 #    Copyright (c) 1994-2003 Lars Wirzenius
 #
 #    This program is free software; you can redistribute it and/or
@@ -27,8 +28,8 @@ scripts=chktri
 all: $(bins)
 
 install: all
-	install $(bins) $(scripts) $(bindir)
-	install -m 0644 *.1 $(man1dir)
+	install $(bins) $(scripts) $(DESTDIR)$(bindir)
+	install -m 0644 *.1 $(DESTDIR)$(man1dir)
 
 cstr: cstr.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
