@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# chktri - check for trigraphs in C source code
+#
+# Lars Wirzenius
+# $Id: chktri,v 1.1.1.1 1996/09/16 18:19:50 liw Exp $
+
+grep "??[()<>!'-=/]" $*

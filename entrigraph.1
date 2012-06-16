@@ -1,0 +1,14 @@
+.TH ENTRIGRAPH 1
+.SH NAME
+entrigraph \- convert C source code to use trigraphs
+.SH SYNOPSIS
+entrigraph [file ...]
+.SH "DESCRIPTION"
+This program converts a C program to use trigraphs.
+A trigraph is a three character sequence that encodes a single character.
+A trigraph begins with two question marks.
+The third character is `/' (the trigraph means `\\'), '(' (`['),  ')' (`]'),  '<' (`{'),  '>' (`}'),  '!' (`|'),  ''' (`^'),  '-' (`~'),  '=' (`/'), or '/' (`\\').
+.SH "SEE ALSO"
+untrigraph(1)
+.SH AUTHOR
+Lars Wirzenius, liw@iki.fi.

@@ -1,0 +1,7 @@
+This is a test file without C++ comments.
+/* this is a comment // */
+"this is a string literal \""
+'this is a character literal \''
+// this is a C++ comment
+// another line of C++ comments
+Hopefully everything works.
