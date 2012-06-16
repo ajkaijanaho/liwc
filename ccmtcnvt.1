@@ -4,12 +4,12 @@ ccmtcnvt \- convert C++ comments to C comments
 .SH SYNOPSIS
 ccmtcnvt [-hv] [--help] [--version] [file ...]
 .SH "DESCRIPTION"
-This program converts the C++ style comments into C style comments.
-C++ allows comments of that begin with `//' and end with the next newline.
-Some C compilers accept these as well, 
-which lures people into using them, 
-even though it is against the language definition,
-and even though most C compilers will not accept such comments.
+This program converts the C++ style comments into traditional C style comments.
+C++ allows comments of that begin with `//' and end with the next newline,
+but they weren't introduced to the C language until the 1999 version
+of the C standard.
+Some C compilers alre3ady accept these,
+but for those who don't, you can use this utility to convert them.
 .SH BUGS
 ccmtcnvt assumes that the input is syntactically correct C code (except for
 the comments).

@@ -1,0 +1,15 @@
+.TH CHKTRI 1
+.SH NAME
+chktri \- check for trigraphs in C source code
+.SH SYNOPSIS
+chktri [file ...]
+.SH "DESCRIPTION"
+This program looks for lines containing trigraphs in C source code.
+Trigraphs are a way to represent certain characters
+in C source code as two question marks and a third character.
+For example, a backslash could be represented as `??/'.
+For a detail specification, see section 5.2.1.1 in the 
+ISO 9899:1990 standard or any decent C book.
+(You don't really want to know.)
+.SH AUTHOR
+Lars Wirzenius, liw@iki.fi.

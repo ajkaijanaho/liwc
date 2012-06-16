@@ -2,7 +2,7 @@
  * Name:	entrigraph.c
  * Purpose:	Put trigraphs into C source code file.
  * Author:	Lars Wirzenius
- * Version:	"@(#)liwctools:$Id: entrigraph.c,v 1.1.1.1 1996/09/16 18:19:51 liw Exp $"
+ * Version:	"@(#)liwctools:$Id$"
  */
 
 #include <stdio.h>

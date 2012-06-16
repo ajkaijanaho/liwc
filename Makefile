@@ -6,7 +6,7 @@ LIBS=-lpub
 bindir=/usr/local/bin
 man1dir=/usr/local/man/man1
 
-bins=ccmtcnvt entrigraph untrigraph rmccmt
+bins=ccmtcnvt entrigraph untrigraph rmccmt cstr
 scripts=chktri
 
 all: $(bins)
@@ -15,6 +15,8 @@ install: all
 	install $(bins) $(scripts) $(bindir)
 	install -m 0644 *.1 $(man1dir)
 
+cstr: cstr.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
 ccmtcnvt: ccmtcnvt.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
 rmccmt: rmccmt.c

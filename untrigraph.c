@@ -2,7 +2,7 @@
  * Name:	untrigraph.c
  * Purpose:	Remove trigraphs from C code.
  * Author:	Lars Wirzenius
- * Version:	"@(#)liwc:$Id: untrigraph.c,v 1.1.1.1 1996/09/16 18:19:51 liw Exp $"
+ * Version:	"@(#)liwc:$Id$"
  */
 
 #include <assert.h>

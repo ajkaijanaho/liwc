@@ -1,6 +1,6 @@
 /*
  * Name:	rmccmt.c
- * Purpose:	Remove comments from C programs.
+ * Purpose:	Remove comments from C and C++ programs.
  * Author:	Lars Wirzenius
  * Version:	"@(#)liwc:$Id: rmccmt.c,v 1.1.1.1 1996/09/16 18:19:51 liw Exp $"
  */
@@ -9,7 +9,17 @@
 #include <stdlib.h>
 #include <publib.h>
 
-enum state { code, begcmt, incmt, endcmt, str, strquote, chr, chrquote };
+enum state { 
+	code, 		/* In code, i.e., outside anything else */
+	begcmt, 	/* '/' has been read, possible beginning of comment */
+	incmt, 		/* Inside trad. C style comment */
+	endcmt, 	/* '*' has been read, possible end of comment */
+	incppcmt, 	/* Inside C++ style comment */
+	str, 		/* Inside string literal */
+	strquote, 	/* Backslash-escaped character inside str. literal */
+	chr, 		/* Inside character literal */
+	chrquote 	/* Backslash-escaped character inside char. literal */
+};
 
 static int keepnl;
 
@@ -42,7 +52,7 @@ static int rmcmt(FILE *f, char *filename, void *dummy) {
 		case begcmt:
 			switch (c) {
 			case '/':
-				putchar('/');
+				st = incppcmt;
 				break;
 			case '*':
 				st = incmt;
@@ -80,6 +90,13 @@ static int rmcmt(FILE *f, char *filename, void *dummy) {
 				putchar(' '); /* replace cmt with space */
 			} else if (c != '*')
 				st = incmt;
+			break;
+
+		case incppcmt:
+			if (c == '\n') {
+				st = code;
+				putchar('\n');
+			}
 			break;
 
 		case str:

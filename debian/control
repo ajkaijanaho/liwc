@@ -1,0 +1,13 @@
+Source: liwc
+Maintainer: Lars Wirzenius <liw@iki.fi>
+Section: devel
+Priority: optional
+Standards-Version: 3.1.1.1
+
+Package: liwc
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Tools for manipulating C source code
+ Includes programs for converting C++ comments to C comments,
+ removing C comments, print out string literals, and converting 
+ characters to trigraphs and trigraphs to characters.

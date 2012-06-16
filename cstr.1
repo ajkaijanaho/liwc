@@ -1,0 +1,14 @@
+.TH CSTR 1
+.SH NAME
+cstr \- print out string literals in C source code
+.SH SYNOPSIS
+cstr [-hv] [--help] [--version] [file ...]
+.SH "DESCRIPTION"
+This program reads C source code files and prints out all string
+literals in them.
+Each literal starts on a new line.
+Escapes are not converted.
+Surrounding double quotes are not retained.
+Adjacent literals (with only white space in between) are not combined.
+.SH AUTHOR
+Lars Wirzenius, liw@iki.fi.

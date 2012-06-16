@@ -1,0 +1,35 @@
+#!/usr/bin/make -f
+
+build:
+	$(MAKE) CFLAGS=-O2 LDFLAGS=-s
+
+binary: binary-arch binary-indep
+
+binary-arch: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	$(MAKE) bindir=debian/tmp/usr/bin \
+	        man1dir=debian/tmp/usr/share/man/man1 \
+		install
+	
+	dh_installdocs README
+	dh_installchangelogs
+	dh_link
+	dh_compress
+	dh_strip
+	dh_fixperms
+	dh_shlibdeps
+	dh_installdeb
+	dh_gencontrol -- -isp
+	dh_md5sums
+	dh_builddeb
+	
+binary-indep:
+
+clean:
+	$(MAKE) clean
+	dh_testdir
+	dh_clean

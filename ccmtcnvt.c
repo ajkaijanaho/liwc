@@ -1,18 +1,19 @@
 /*
  * ccmtcnvt.c -- convert C++ comments to C comments
  * Lars Wirzenius
- * "@(#)liwc:$Id: ccmtcnvt.c,v 1.1.1.1 1996/09/16 18:19:50 liw Exp $"
+ * "@(#)liwc:$Id: ccmtcnvt.c,v 1.2 1997/11/11 01:29:14 liw Exp $"
  *
  * Usage:	ccmtcnvt [-hv] [--help] [--version] [file...]
  * All output is to the standard output.
  *
- * C++ allows comments of that begin with `//' and end with the next
- * newline.  Some C compilers accept these as well, which lures people
- * into using them, even though it is against the language definition,
- * and even though most C compilers will not accept such comments.
- *
- * This program converts the C++ style comments into C style comments.  It
- * is written as a finite state machine (FSM), which reads (presumably
+ * This  program  converts the C++ style comments into traditional C style
+ * comments.   C++  allows  comments  of  that begin  with  `//'  and end
+ * with the next newline, but they weren't introduced to the C language
+ * until the  1999  version  of the C standard.  Some C compilers alre3ady
+ * accept these, but for those who don't, you can use  this  utility to
+ * convert them.
+ * 
+ * This is written as a finite state machine (FSM), which reads (presumably
  * correct) C code, and when it finds a // that is not inside a comment, or
  * string or character literal, it converts it to a C start of comment and
  * adds a space and a comment delimiter (unreproducible here :-) before the
@@ -35,6 +36,8 @@
  * c) Does not understand line continuation (\ at end of line) outside
  * string literals and character constants.
  *
+ * Patches for fixing these are welcome. They're not common enough for me
+ * to worry about them, at least for now.
  */
 
 /*
@@ -53,6 +56,7 @@
  */
 
 #include <assert.h>
+#include <errno.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdarg.h>

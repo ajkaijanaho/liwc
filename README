@@ -1,8 +1,12 @@
-This is ccmtcnvt, version 1.1.
+This is liwc, version 1.6.
+
+liwc is a collection of programs to manipulate C source code.
 
 ccmtcnvt converts C++ comments (// foo) to C comments (/* foo */).
-Please see ccmtcnvt.1 (the manual page) and the top of the ccmtcnvt.c for
-details.
+rmccmt removes C and C++ comments.
+entrigraph converts single characters to trigraphs.
+untrigraph converts trigraphs to single characters.
+cstr prints string literals in C programs.
 
 You need my Publib library and a <unistd.h> that declares getopt
 to build. Once you have these (or hack the source to avoid them),
@@ -11,7 +15,7 @@ you can compile with "make" and install with "make install".
 Please send all bug reports by electronic mail to:
     liw@iki.fi
 
-ccmtcnvt is free software.  You may copy it according to the
+liwc is free software.  You may copy it according to the
 GNU General Public License, version 2. A copy of the license
 is not included, but you can get one from most FTP sites that
 have GNU software, for example, prep.ai.mit.edu.
