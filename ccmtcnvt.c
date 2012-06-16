@@ -1,7 +1,7 @@
 /*
  * ccmtcnvt.c -- convert C++ comments to C comments
  * Lars Wirzenius
- * "@(#)liwc:$Id: ccmtcnvt.c,v 1.2 1997/11/11 01:29:14 liw Exp $"
+ * "@(#)liwc:$Id: ccmtcnvt.c,v 1.3 2000/04/29 12:42:16 liw Exp $"
  *
  * Usage:	ccmtcnvt [-hv] [--help] [--version] [file...]
  * All output is to the standard output.

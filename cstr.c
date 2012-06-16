@@ -1,7 +1,7 @@
 /*
  * ccstr.c -- print out C string literals
  * Lars Wirzenius
- * "@(#)liwc:$Id$"
+ * "@(#)liwc:$Id: cstr.c,v 1.1 1996/09/22 12:26:26 liw Exp $"
  *
  * Usage:	cstr [-hv] [--help] [--version] [file...]
  * All output is to the standard output.

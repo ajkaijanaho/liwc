@@ -1,0 +1,18 @@
+2003-02-06  Lars Wirzenius  <liw@iki.fi>
+
+	* liwc.1: Wrote. Suggested by Martin Pool (mbp@sourcefrog.net).
+	
+	* Making release 1.20.
+
+2003-01-19  Lars Wirzenius  <liw@iki.fi>
+
+    	* Making release 1.9.
+
+	* rmccmt.c, rmccmt.1: Added option -c to remove code, keep
+	comments.
+
+2001-09-23  Lars Wirzenius  <liw@iki.fi>
+
+	* New version 1.8. The only difference is that the debian/* files
+	have been removed, since I no longer maintain the Debian package.
+	Antti-Juhani Kaijanaho has taken over the Debian package.

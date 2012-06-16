@@ -2,12 +2,13 @@
 .SH NAME
 rmccmt \- remove comments from C and C++ programs
 .SH SYNOPSIS
-rmccmt [-n] [file ...]
+rmccmt [-n] [-c] [file ...]
 .SH "DESCRIPTION"
 This program removes comments from C source code,
 both traditional and C++ style comments.
 Each traditional comment is replaced with one space,
 and C++ style comment is replaced with a newline.
 With the `-n' option, newlines inside traditional C comments are kept.
+With the '-c' option, code is removed and comments kept.
 .SH AUTHOR
 Lars Wirzenius, liw@iki.fi.
