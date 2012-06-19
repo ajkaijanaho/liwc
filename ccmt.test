@@ -4,4 +4,5 @@ This is a test file without C++ comments.
 'this is a character literal \''
 // this is a C++ comment
 // another line of C++ comments
+// a troublesome C++ comment */
 Hopefully everything works.

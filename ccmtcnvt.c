@@ -1,5 +1,6 @@
 /*
  * Part of liwc, a collection of tools for manipulating C source code
+ * Copyright (c) 2012 Antti-Juhani Kaijanaho
  * Copyright (c) 1994-2003 Lars Wirzenius
  *
  * This program is free software; you can redistribute it and/or
@@ -95,7 +96,7 @@
  */
 enum state { 
 	code, chr_lit, chr_esc, str_lit, str_esc, 
-	slash, cpp_cmt, c_cmt, star
+	slash, cpp_cmt, cpp_ast, c_cmt, star
 };
 
 /*
@@ -107,42 +108,50 @@ struct rule {
 	int c;
 	enum state new_state;
 	int print1, print2, print3, print4;
+	const char *warning;
 };
 
 /*
  * The FSM itself.
  */
 static const struct rule fsm[] = {
-	{ code,	   '"',  str_lit, SELF,	NONE, NONE, NONE	},
-	{ code,    '\'', chr_lit, SELF,	NONE, NONE, NONE	},
-	{ code,	   '/',  slash,   NONE,	NONE, NONE, NONE	},
-	{ code,	   DFL,  code,    SELF,	NONE, NONE, NONE	},
+	{ code,	   '"',  str_lit, SELF,	NONE, NONE, NONE, NULL	},
+	{ code,    '\'', chr_lit, SELF,	NONE, NONE, NONE, NULL	},
+	{ code,	   '/',  slash,   NONE,	NONE, NONE, NONE, NULL	},
+	{ code,	   DFL,  code,    SELF,	NONE, NONE, NONE, NULL	},
 			   
-	{ str_lit, '\\', str_esc, SELF,	NONE, NONE, NONE	},
-	{ str_lit, '"',  code,    SELF,	NONE, NONE, NONE	},
-	{ str_lit, DFL,  str_lit, SELF,	NONE, NONE, NONE	},
+	{ str_lit, '\\', str_esc, SELF,	NONE, NONE, NONE, NULL	},
+	{ str_lit, '"',  code,    SELF,	NONE, NONE, NONE, NULL	},
+	{ str_lit, DFL,  str_lit, SELF,	NONE, NONE, NONE, NULL	},
 			   
-	{ str_esc, DFL,  str_lit, SELF,	NONE, NONE, NONE	},
+	{ str_esc, DFL,  str_lit, SELF,	NONE, NONE, NONE, NULL	},
 			   
-	{ chr_lit, '\\', chr_esc, SELF,	NONE, NONE, NONE	},
-	{ chr_lit, '\'', code,    SELF,	NONE, NONE, NONE	},
-	{ chr_lit, DFL,  chr_lit, SELF,	NONE, NONE, NONE	},
+	{ chr_lit, '\\', chr_esc, SELF,	NONE, NONE, NONE, NULL	},
+	{ chr_lit, '\'', code,	  SELF,	NONE, NONE, NONE, NULL	},
+	{ chr_lit, DFL,	 chr_lit, SELF,	NONE, NONE, NONE, NULL	},
 			   
-	{ chr_esc, DFL,  chr_lit, SELF,	NONE, NONE, NONE	},
+	{ chr_esc, DFL,	 chr_lit, SELF,	NONE, NONE, NONE, NULL	},
 			   
-	{ slash,   '/',  cpp_cmt, '/',	'*',  NONE, NONE	},
-	{ slash,   '*',  c_cmt,   '/',	'*',  NONE, NONE	},
-	{ slash,   DFL,  code,    '/',	SELF, NONE, NONE	},
+	{ slash,   '/',	 cpp_cmt, '/',	'*',  NONE, NONE, NULL	},
+	{ slash,   '*',	 c_cmt,	  '/',	'*',  NONE, NONE, NULL	},
+	{ slash,   DFL,	 code,	  '/',	SELF, NONE, NONE, NULL	},
 
-	{ cpp_cmt, '\n', code,    ' ',	'*',  '/',  SELF	},
-	{ cpp_cmt, DFL,	 cpp_cmt, SELF, NONE, NONE, NONE	},
+	{ cpp_cmt, '\n', code,	  ' ',	'*',  '/',  SELF, NULL	},
+	{ cpp_cmt, '*',	 cpp_ast, SELF,	NONE, NONE, NONE, NULL	},
+	{ cpp_cmt, DFL,	 cpp_cmt, SELF, NONE, NONE, NONE, NULL	},
 
-	{ c_cmt,   '*',  star,    SELF, NONE, NONE, NONE	},
-	{ c_cmt,   DFL,  c_cmt,   SELF, NONE, NONE, NONE	},
+	{ cpp_ast, '\n', code,	  ' ',	'*',  '/',  SELF, NULL	},
+	{ cpp_ast, '*',	 cpp_ast, SELF,	NONE, NONE, NONE, NULL	},
+	{ cpp_ast, '/',	 cpp_cmt, ' ',	SELF, NONE, NONE,
+	  "converted a '*/' inside a C++ comment to '* /'."	},
+	{ cpp_ast, DFL,	 cpp_cmt, SELF, NONE, NONE, NONE, NULL	},
 
-	{ star,    '/',  code,    SELF, NONE, NONE, NONE	},
-	{ star,    '*',  star,    SELF, NONE, NONE, NONE	},
-	{ star,    DFL,  c_cmt,   SELF, NONE, NONE, NONE	},
+	{ c_cmt,   '*',	 star,	  SELF, NONE, NONE, NONE, NULL	},
+	{ c_cmt,   DFL,	 c_cmt,	  SELF, NONE, NONE, NONE, NULL	},
+
+	{ star,	   '/',	 code,	  SELF, NONE, NONE, NONE, NULL	},
+	{ star,	   '*',	 star,	  SELF, NONE, NONE, NONE, NULL	},
+	{ star,	   DFL,	 c_cmt,	  SELF, NONE, NONE, NONE, NULL	},
 };
 
 
@@ -216,6 +225,8 @@ static int convert(FILE *f, char *filename, void *dummy) {
 				print(p->print2);
 				print(p->print3);
 				print(p->print4);
+				if (p->warning != NULL)
+					errormsg(0, 0, "%s", p->warning);
 				break;
 			}
 		}
