@@ -1,7 +1,24 @@
 /*
+ * Part of liwc, a collection of tools for manipulating C source code
+ * Copyright (c) 1994-2003 Lars Wirzenius
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License,
+ * version 2, as published by the Free Software Foundation.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ */
+/*
  * ccstr.c -- print out C string literals
  * Lars Wirzenius
- * "@(#)liwc:$Id: cstr.c,v 1.1 1996/09/22 12:26:26 liw Exp $"
  *
  * Usage:	cstr [-hv] [--help] [--version] [file...]
  * All output is to the standard output.
