@@ -1,5 +1,6 @@
 /*
  * Part of liwc, a collection of tools for manipulating C source code
+ * Copyright (c) 2012 Antti-Juhani Kaijanaho
  * Copyright (c) 1994-2003 Lars Wirzenius
  *
  * This program is free software; you can redistribute it and/or
@@ -25,6 +26,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <publib.h>
 
 enum state { 
